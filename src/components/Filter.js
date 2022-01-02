@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import { FlatList, View, StyleSheet, Text, TouchableOpacity, Image, Dimensions } from "react-native";
 
 const DATA = [
   {
@@ -25,6 +25,16 @@ const DATA = [
   {
     id: "Grupo-05",
     title: "Fifi Item",
+    uri: 'teste-01',
+  },
+  {
+    id: "Grupo-06",
+    title: "Fifi6 Item",
+    uri: 'teste-01',
+  },
+  {
+    id: "Grupo-07",
+    title: "Fifi7 Item",
     uri: 'teste-01',
   },
 ];
@@ -60,7 +70,8 @@ const Filter = () => {
         }
         backgroundColor={{ backgroundColor }
         }
-        textColor={{ color }}
+        textColor={{ color }
+        }
         borderColor={{ borderColor }}
       />
     );
@@ -79,36 +90,37 @@ const Filter = () => {
     </View>
   );
 };
+const { width, height } = Dimensions.get('screen')
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    minHeight: 120,
-    maxHeight: 120,
+    width: width,
+    height: height / 7,
+    marginTop: 40
+
   },
   item: {
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 15,
-    paddingBottom: 25
   },
   categorias: {
-    marginVertical: 15,
-    marginBottom: 25,
     color: '#C0D904',
-    fontSize: 18,
-    fontWeight: 'bold'
+    fontSize: 22,
+    fontWeight: 'bold',
+    backgroundColor: 'red',
+    marginTop: 10
   },
   image: {
-    width: 48,
-    height: 48,
-    borderWidth: 1,
+    width: width / 13,
+    height: width / 13,
+    borderWidth: 2,
     borderRadius: 1000,
     resizeMode: 'center',
 
   },
   title: {
-    fontSize: 12,
+    fontSize: 16,
     textAlign: 'center',
     fontWeight: 'bold',
     marginTop: 5,
