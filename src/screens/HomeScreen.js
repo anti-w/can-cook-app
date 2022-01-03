@@ -1,7 +1,7 @@
 import Filter from '../components/Filter'
 import React from 'react'
 import { View, SafeAreaView } from 'react-native'
-import CardAlimento from '../components/CardAlimento'
+import AlimentoList from '../components/AlimentoList'
 import Logo from '../components/Logo'
 
 const HomeScreen = () => {
@@ -11,7 +11,7 @@ const HomeScreen = () => {
       <Filter />
       <Logo />
 
-      <CardAlimento />
+      <AlimentoList />
 
 
 
