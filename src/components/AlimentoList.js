@@ -146,17 +146,15 @@ const CardAlimento = ({ item }) => {
     <View style={styles.container}>
       {/* Início do card (imagem + descrição do alimento) */}
       <View style={styles.card}>
-        <View style={styles.card}>
-          <Image
-            source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3075/3075977.png' }}
-            style={{ width: 64, height: 64, resizeMode: 'center' }}
-          />
+        <Image
+          source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3075/3075977.png' }}
+          style={styles.image}
+        />
 
-          <Text style={styles.description}>
-            <Text>{item.Nome}</Text>
+        <Text style={styles.description}>
+          <Text>{item.Nome}</Text>
 
-          </Text>
-        </View>
+        </Text>
 
       </View>
       {/* Fim do card e início do container do contador*/}
@@ -165,13 +163,9 @@ const CardAlimento = ({ item }) => {
           onPress={() => { if (counter >= 0) setCounter(counter + 1) }}
           style={styles.button}>
           <Text
-            style={{
-              color: '#ADBF24',
-              fontWeight: 'bold',
-              fontSize: 30,
-            }}>+</Text>
+            style={styles.buttonCount}>+</Text>
         </TouchableOpacity>
-        <Text style={{ fontWeight: 'bold' }}>
+        <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>
           {counter >= 10 ? counter / 10 + ' kg' : counter * 100 + ' gramas'}
         </Text>
         <TouchableOpacity
@@ -181,11 +175,7 @@ const CardAlimento = ({ item }) => {
           }}
           style={styles.button}>
           <Text
-            style={{
-              color: '#ADBF24',
-              fontWeight: 'bold',
-              fontSize: 30,
-            }}>-</Text>
+            style={styles.buttonCount}>-</Text>
         </TouchableOpacity>
 
       </View>
@@ -208,47 +198,56 @@ const AlimentoList = () => {
   )
 }
 
-const { width, height } = Dimensions.get('window')
+const { width, height } = Dimensions.get('screen')
 
 const styles = StyleSheet.create({
   container: {
     flex: 4,
     flexDirection: 'row',
-    marginVertical: 15,
-    justifyContent: 'space-between'
+    marginVertical: 10,
+    justifyContent: 'space-between',
+    marginHorizontal: 10,
   },
   card: {
-    width: width / 1.5,
-    height: width / 4.25,
+    width: width / 1.3,
+    height: width / 5.2,
     backgroundColor: '#ADBF24',
     borderRadius: width / 25,
-    marginHorizontal: 15,
+    paddingHorizontal: 15,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
 
   containerAdd: {
-    width: width / 5,
+    width: width / 6,
     flexDirection: 'column',
+    justifyContent: 'center',
+    paddingHorizontal: 0,
   },
   button: {
-    width: width / 12,
-    height: width / 12,
+    width: width / 18,
+    height: width / 18,
     borderRadius: 1000,
     alignItems: 'center',
     backgroundColor: 'white',
-    justifyContent: 'center',
-    marginVertical: 5
+    marginVertical: 4
   },
   description: {
     color: 'white',
-    fontSize: 20,
-    marginHorizontal: 30,
-    marginRight: width / 10,
+    fontSize: 15,
+    width: width / 1.7,
+
   },
   image: {
-
+    width: width / 12,
+    height: width / 12,
+    resizeMode: 'center',
+    marginRight: 20
+  },
+  buttonCount: {
+    color: '#ADBF24',
+    fontWeight: 'bold',
+    fontSize: 20,
   }
 })
 

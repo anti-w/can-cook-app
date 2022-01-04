@@ -1,89 +1,60 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios'
 import { FlatList, View, StyleSheet, Text, TouchableOpacity, Image, Dimensions } from "react-native";
 
-const DATA = [
-  {
-    id: "Grupo-01",
-    title: "Grupo 01",
-    uri: 'https://cdn-icons-png.flaticon.com/512/3075/3075977.png',
-  },
-  {
-    id: "Grupo-02",
-    title: "Grupo 02",
-    uri: 'https://cdn-icons.flaticon.com/png/512/1065/premium/1065715.png?token=exp=1641140364~hmac=99281d8b48f19202e84be56ab81aa73d',
-  },
-  {
-    id: "Grupo-03",
-    title: "Third Item",
-    uri: 'teste-03',
-  },
-  {
-    id: "Grupo-04",
-    title: "Forth Item",
-    uri: 'teste-04',
-  },
-  {
-    id: "Grupo-05",
-    title: "Fifi Item",
-    uri: 'teste-01',
-  },
-  {
-    id: "Grupo-06",
-    title: "Fifi6 Item",
-    uri: 'teste-01',
-  },
-  {
-    id: "Grupo-07",
-    title: "Fifi7 Item",
-    uri: 'teste-01',
-  },
-];
 
-const Item = ({ item, onPress, backgroundColor, textColor, borderColor }) => (
+
+const Item = ({ item, onPress, backgroundColor, textColor }) => (
   <TouchableOpacity onPress={onPress} style={[
-    styles.item, backgroundColor, borderColor]}>
+    styles.item, backgroundColor]}>
     <Image
       source={{ uri: item.uri }}
-      style={[styles.image, backgroundColor, borderColor]}
+      style={[styles.image, backgroundColor]}
     />
 
-    <Text style={[styles.title, textColor]}>{item.title}</Text>
+    <Text style={[styles.title, textColor]}>{item.nome}</Text>
   </TouchableOpacity >
 );
 
 const Filter = () => {
+  const [groups, setGroups] = useState(null)
   const [selectedId, setSelectedId] = useState(null);
 
   const renderItem = ({ item }) => {
     const backgroundColor = 'white'
-    const color = item.id === selectedId ? 'black' : 'gray';
-    const borderColor = item.id === selectedId ? '#C0D904' : 'white';
+    const color = item.nome === selectedId ? 'black' : 'gray';
+
 
 
     return (
       <Item
         item={item}
         onPress={() => {
-          setSelectedId(item.id)
-          console.log(item.uri)
+          setSelectedId(item.nome)
+          console.log(item.nome)
         }
         }
         backgroundColor={{ backgroundColor }
         }
         textColor={{ color }
         }
-        borderColor={{ borderColor }}
+
       />
     );
   };
+  useEffect(() => {
+    axios.get('https://api-can-cook.herokuapp.com/groups')
+      .then(res => setGroups(res.data))
+      .catch(err => console.log(err))
+  }, [])
 
   return (
     <View style={styles.container}>
       <Text style={[styles.item, styles.categorias]}>Categorias</Text>
       <FlatList
-        data={DATA}
+        data={groups}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.nome}
         extraData={selectedId}
         horizontal
       />
@@ -105,19 +76,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   categorias: {
-    color: '#C0D904',
     fontSize: 22,
     fontWeight: 'bold',
-    backgroundColor: 'red',
     marginTop: 10
   },
   image: {
     width: width / 13,
     height: width / 13,
-    borderWidth: 2,
     borderRadius: 1000,
     resizeMode: 'center',
-
   },
   title: {
     fontSize: 16,
