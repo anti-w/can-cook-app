@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios'
+import { connect } from 'react-redux'
 import { FlatList, View, StyleSheet, Text, TouchableOpacity, Image, Dimensions } from "react-native";
+import { filter } from '../store/actions/groups';
 
 
 
-const Item = ({ item, onPress, backgroundColor, textColor }) => (
+const Item = ({ item, onPress, backgroundColor, textColor, id }) => (
   <TouchableOpacity onPress={onPress} style={[
     styles.item, backgroundColor]}>
     <Image
@@ -16,24 +18,23 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
   </TouchableOpacity >
 );
 
-const Filter = () => {
+const Filter = ({ setGroup, group }) => {
   const [groups, setGroups] = useState(null)
   const [selectedId, setSelectedId] = useState(null);
 
   const renderItem = ({ item }) => {
     const backgroundColor = 'white'
-    const color = item.nome === selectedId ? 'black' : 'gray';
-
-
-
+    const color = item.nome === selectedId || item.search === selectedId ? 'black' : 'gray';
     return (
       <Item
         item={item}
         onPress={() => {
-          setSelectedId(item.nome)
-          console.log(item.nome)
+
+          item.search ? setGroup(item.search) :
+            setGroup(item.nome)
         }
         }
+        id={group}
         backgroundColor={{ backgroundColor }
         }
         textColor={{ color }
@@ -49,7 +50,8 @@ const Filter = () => {
   }, [])
 
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}>
       <Text style={[styles.item, styles.categorias]}>Categorias</Text>
       <FlatList
         data={groups}
@@ -95,4 +97,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Filter;
+const mapStateToProps = ({ filter }) => {
+  return {
+    group: filter.group
+  }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setGroup: (group) => dispatch(filter(group))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

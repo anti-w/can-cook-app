@@ -4,6 +4,7 @@ import { View, SafeAreaView } from 'react-native'
 import AlimentoList from '../components/AlimentoList'
 import Logo from '../components/Logo'
 
+
 const HomeScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>

@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "app-cancook",
-    "slug": "app-cancook",
+    "name": "app-caneat",
+    "slug": "app-caneat",
     "version": "1.0.0",
+    "entryPoint": "./Root.js",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -13,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },

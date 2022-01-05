@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 import axios from 'axios'
 import { View, Text, StyleSheet, Dimensions, Button, TouchableOpacity, FlatList, Image } from 'react-native'
 
@@ -25,7 +26,9 @@ const CardAlimento = ({ item }) => {
       {/* Fim do card e início do container do contador*/}
       <View style={[styles.card, styles.containerAdd]}>
         <TouchableOpacity
-          onPress={() => { if (counter >= 0) setCounter(counter + 1) }}
+          onPress={() => {
+            if (counter >= 0) setCounter(counter + 1)
+          }}
           style={styles.button}>
           <Text
             style={styles.buttonCount}>+</Text>
@@ -55,18 +58,18 @@ const CardAlimento = ({ item }) => {
 
 }
 
-const AlimentoList = () => {
+const AlimentoList = ({ group }) => {
   const [alimentos, setAlimentos] = useState(null)
 
+
   useEffect(() => {
-    axios.get('https://api-can-cook.herokuapp.com/alimentos').then((res) => setAlimentos(res.data)).catch(err => console.log(err))
+    axios.get(`https://api-can-cook.herokuapp.com/${group}`).then((res) => setAlimentos(res.data)).catch(err => console.log(err))
 
-  }, [])
+  }, [group])
 
-  const renderItem = ({ item }) => {
-    return (<CardAlimento item={item} />)
+  const renderItem = ({ item }) => <CardAlimento item={item} />
 
-  }
+
   return (
     <FlatList
       data={alimentos}
@@ -106,6 +109,7 @@ const styles = StyleSheet.create({
     height: width / 18,
     borderRadius: 1000,
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: 'white',
     marginVertical: 4
   },
@@ -129,4 +133,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default AlimentoList
+const mapStateToProps = ({ filter }) => {
+  return {
+    group: filter.group,
+  }
+}
+
+export default connect(mapStateToProps)(AlimentoList)
