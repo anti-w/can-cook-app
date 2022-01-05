@@ -18,7 +18,7 @@ const Item = ({ item, onPress, backgroundColor, textColor, id }) => (
   </TouchableOpacity >
 );
 
-const Filter = ({ setGroup, group }) => {
+const Filter = ({ setGroup }) => {
   const [groups, setGroups] = useState(null)
   const [selectedId, setSelectedId] = useState(null);
 
@@ -30,11 +30,10 @@ const Filter = ({ setGroup, group }) => {
         item={item}
         onPress={() => {
 
-          item.search ? setGroup(item.search) :
-            setGroup(item.nome)
+          item.search ? setGroup({ group: item.search, uri: item.uri }) :
+            setGroup({ group: item.nome, uri: item.uri })
         }
         }
-        id={group}
         backgroundColor={{ backgroundColor }
         }
         textColor={{ color }
@@ -97,11 +96,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ filter }) => {
-  return {
-    group: filter.group
-  }
-}
 
 
 const mapDispatchToProps = (dispatch) => {
@@ -110,4 +104,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+export default connect(null, mapDispatchToProps)(Filter);

@@ -4,7 +4,7 @@ import axios from 'axios'
 import { View, Text, StyleSheet, Dimensions, Button, TouchableOpacity, FlatList, Image } from 'react-native'
 
 
-const CardAlimento = ({ item }) => {
+const CardAlimento = ({ item, uri }) => {
   const [counter, setCounter] = useState(0)
 
 
@@ -13,7 +13,7 @@ const CardAlimento = ({ item }) => {
       {/* Início do card (imagem + descrição do alimento) */}
       <View style={styles.card}>
         <Image
-          source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3075/3075977.png' }}
+          source={{ uri: uri }}
           style={styles.image}
         />
 
@@ -58,7 +58,7 @@ const CardAlimento = ({ item }) => {
 
 }
 
-const AlimentoList = ({ group }) => {
+const AlimentoList = ({ group, uri }) => {
   const [alimentos, setAlimentos] = useState(null)
 
 
@@ -67,7 +67,7 @@ const AlimentoList = ({ group }) => {
 
   }, [group])
 
-  const renderItem = ({ item }) => <CardAlimento item={item} />
+  const renderItem = ({ item }) => <CardAlimento item={item} uri={uri} />
 
 
   return (
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({ filter }) => {
   return {
     group: filter.group,
+    uri: filter.uri
   }
 }
 
