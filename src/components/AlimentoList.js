@@ -11,20 +11,25 @@ const CardAlimento = ({ item, uri }) => {
   return (
     <View style={styles.container}>
       {/* Início do card (imagem + descrição do alimento) */}
-      <View style={styles.card}>
+      <View style={[styles.content, styles.card]}>
         <Image
           source={{ uri: uri }}
           style={styles.image}
         />
+        <View style={{ justifyContent: 'space-between' }}>
+          <Text style={styles.description}>
+            <Text>{item.Nome}</Text>
 
-        <Text style={styles.description}>
-          <Text>{item.Nome}</Text>
+          </Text>
+          <View style={{ backgroundColor: 'red' }}>
+            <Text>{[item]}</Text>
 
-        </Text>
+          </View>
+        </View>
 
       </View>
       {/* Fim do card e início do container do contador*/}
-      <View style={[styles.card, styles.containerAdd]}>
+      <View style={[styles.content, styles.containerAdd]}>
         <TouchableOpacity
           onPress={() => {
             if (counter >= 0) setCounter(counter + 1)
@@ -37,9 +42,9 @@ const CardAlimento = ({ item, uri }) => {
           style={
             {
               textAlign: 'center', fontWeight: 'bold',
-              color: 'white'
+              color: 'white', marginVertical: 8
             }}>
-          {counter >= 10 ? counter / 10 + ' kg' : counter * 100 + ' gramas'}
+          {counter >= 10 ? counter / 10 + ' kg' : counter * 100 + ' g'}
         </Text>
         <TouchableOpacity
           onPress={() => {
@@ -53,11 +58,10 @@ const CardAlimento = ({ item, uri }) => {
 
       </View>
 
+
     </View>
   )
-
 }
-
 /* 
 
 component responsável por renderizar os dados da API
@@ -87,7 +91,7 @@ const AlimentoList = ({ group, uri }) => {
   //axios retorna uma promise que é resolvida com o .then assim tenho na resposta da requisição uma prop chamada data que contém os dados já em formato json
 
 
-  //função para renderizar o CardAlimento de acordo com cada item vindo da propriedade do component Flatlist "renderItem" que recebe uma função e retorna um objeto com uma prop chamada item contendo os dados no json, assim podemos acessar os dados através como acessamos qualquer valor num obj obj.field.value
+  //função para renderizar o CardAlimento de acordo com cada item vindo da propriedade do component Flatlist "renderItem" que recebe uma função e retorna um objeto com uma prop chamada item contendo os dados no json, assim podemos acessar os dados como acessamos qualquer valor num obj obj.key.value
 
 
   //como renderItem retorna mais de um e queremos apenas o item, utilizei a sintaxe de destructuring para não pegar nada das props além de item
@@ -105,55 +109,54 @@ const AlimentoList = ({ group, uri }) => {
 const { width, height } = Dimensions.get('screen')
 
 const styles = StyleSheet.create({
+
   container: {
-    flex: 4,
     flexDirection: 'row',
     marginVertical: 10,
-    justifyContent: 'space-between',
     marginHorizontal: 10,
-  },
-  card: {
-    width: width / 1.3,
-    height: width / 5.2,
-    backgroundColor: '#08A620',
-    borderRadius: width / 25,
-    paddingHorizontal: 15,
-    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  content: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    backgroundColor: 'green',
+    height: width / 6,
   },
 
+  card: {
+    flexDirection: 'row',
+    width: width / 1.3,
+  },
   containerAdd: {
-    width: width / 6,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    paddingHorizontal: 0,
+    width: width / 7,
   },
   button: {
-    width: width / 18,
-    height: width / 18,
-    borderRadius: 1000,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: 'white',
-    marginVertical: 4
+    width: width / 20,
+    height: width / 20,
+    alignItems: 'center',
+    marginVertical: -5,
+    borderRadius: 1000
+
   },
   description: {
     color: 'white',
-    fontSize: 20,
-    width: width / 1.7,
+    fontSize: 16,
+    width: width / 1.6,
+    textAlign: 'center',
     fontWeight: 'bold'
-
   },
   image: {
     width: width / 12,
     height: width / 12,
-    resizeMode: 'center',
-    marginRight: 30
+    resizeMode: 'contain',
+    marginRight: 10
   },
   buttonCount: {
     color: '#08A620',
-    fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 16,
   }
 })
 
