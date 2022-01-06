@@ -21,8 +21,12 @@ const CardAlimento = ({ item, uri }) => {
             <Text>{item.Nome}</Text>
 
           </Text>
-          <View style={{ backgroundColor: 'red' }}>
-            <Text>{[item]}</Text>
+          <View style={{ backgroundColor: 'red', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={{ color: 'white' }}>{item.Cálciomg}</Text>
+            <Text style={{ color: 'white' }}>{item.Cálciomg}</Text>
+            <Text style={{ color: 'white' }}>{item.Cálciomg}</Text>
+            <Text style={{ color: 'white' }}>{item.Carboidratototalg}</Text>
+            <Text style={{ color: 'white' }}>{item.VitaminaB6mg == null ? item.VitaminaB6mg : '0'}</Text>
 
           </View>
         </View>
