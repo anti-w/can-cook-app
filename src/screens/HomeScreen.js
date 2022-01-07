@@ -10,7 +10,7 @@ const HomeScreen = () => {
     <SafeAreaView style={{ flex: 1 }}>
 
       <Filter />
-      {/* <Logo /> */}
+      <Logo />
 
       <AlimentoList />
 

@@ -1,1 +1,2 @@
 export const SELECT_GROUP = 'SELECT_GROUP'
+export const ADD_ALIMENTO = 'ADD_ALIMENTO'

@@ -1,73 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { View, Text, StyleSheet, Dimensions, Button, TouchableOpacity, FlatList, Image } from 'react-native'
+import { FlatList } from 'react-native'
 
+import CardAlimento from './CardAlimento'
 
-const CardAlimento = ({ item, uri }) => {
-  const [counter, setCounter] = useState(0)
-
-
-  return (
-    <View style={styles.container}>
-      {/* Início do card (imagem + descrição do alimento) */}
-      <View style={[styles.content, styles.card]}>
-        <Image
-          source={{ uri: uri }}
-          style={styles.image}
-        />
-        <View style={{ justifyContent: 'space-between' }}>
-          <Text style={styles.description}>
-            <Text>{item.Nome}</Text>
-
-          </Text>
-          <View style={{ backgroundColor: 'red', flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={{ color: 'white' }}>{item.Cálciomg}</Text>
-            <Text style={{ color: 'white' }}>{item.Cálciomg}</Text>
-            <Text style={{ color: 'white' }}>{item.Cálciomg}</Text>
-            <Text style={{ color: 'white' }}>{item.Carboidratototalg}</Text>
-            <Text style={{ color: 'white' }}>{item.VitaminaB6mg == null ? item.VitaminaB6mg : '0'}</Text>
-
-          </View>
-        </View>
-
-      </View>
-      {/* Fim do card e início do container do contador*/}
-      <View style={[styles.content, styles.containerAdd]}>
-        <TouchableOpacity
-          onPress={() => {
-            if (counter >= 0) setCounter(counter + 1)
-          }}
-          style={styles.button}>
-          <Text
-            style={styles.buttonCount}>+</Text>
-        </TouchableOpacity>
-        <Text
-          style={
-            {
-              textAlign: 'center', fontWeight: 'bold',
-              color: 'white', marginVertical: 8
-            }}>
-          {counter >= 10 ? counter / 10 + ' kg' : counter * 100 + ' g'}
-        </Text>
-        <TouchableOpacity
-          onPress={() => {
-            if (counter > 0)
-              setCounter(counter - 1)
-          }}
-          style={styles.button}>
-          <Text
-            style={styles.buttonCount}>-</Text>
-        </TouchableOpacity>
-
-      </View>
-
-
-    </View>
-  )
-}
 /* 
-
 component responsável por renderizar os dados da API
 através de uma flatlist
 foi necessário o uso do redux para fazer a requisição
@@ -110,59 +48,6 @@ const AlimentoList = ({ group, uri }) => {
   )
 }
 
-const { width, height } = Dimensions.get('screen')
-
-const styles = StyleSheet.create({
-
-  container: {
-    flexDirection: 'row',
-    marginVertical: 10,
-    marginHorizontal: 10,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  content: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    backgroundColor: 'green',
-    height: width / 6,
-  },
-
-  card: {
-    flexDirection: 'row',
-    width: width / 1.3,
-  },
-  containerAdd: {
-    width: width / 7,
-  },
-  button: {
-    backgroundColor: 'white',
-    width: width / 20,
-    height: width / 20,
-    alignItems: 'center',
-    marginVertical: -5,
-    borderRadius: 1000
-
-  },
-  description: {
-    color: 'white',
-    fontSize: 16,
-    width: width / 1.6,
-    textAlign: 'center',
-    fontWeight: 'bold'
-  },
-  image: {
-    width: width / 12,
-    height: width / 12,
-    resizeMode: 'contain',
-    marginRight: 10
-  },
-  buttonCount: {
-    color: '#08A620',
-    fontSize: 16,
-  }
-})
 
 const mapStateToProps = ({ filter }) => {
   return {
