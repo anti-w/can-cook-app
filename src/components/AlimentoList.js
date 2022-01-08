@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { FlatList } from 'react-native'
+import { FlatList, View } from 'react-native'
 
 import CardAlimento from './CardAlimento'
+import FoodCard from './FoodCard'
 
 /* 
 component responsável por renderizar os dados da API

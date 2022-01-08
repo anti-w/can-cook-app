@@ -59,7 +59,6 @@ const Filter = ({ setGroup }) => {
         data={groups}
         renderItem={renderItem}
         keyExtractor={(item) => item.nome}
-        extraData={selectedId}
         horizontal
       />
     </View>

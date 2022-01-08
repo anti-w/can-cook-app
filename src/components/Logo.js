@@ -1,13 +1,14 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, FlatList } from 'react-native'
 import { connect } from 'react-redux'
+import FoodCard from './FoodCard'
 
 
-const Logo = ({ carboidrato, alimento, itens }) => {
+const Logo = ({ alimento, nome }) => {
   return (
-    <View style={{ height: 30, backgroundColor: 'blue' }}>
-      <Text style={{ color: 'white' }}>
-        {((carboidrato).toFixed(1))}
+    <View style={{ height: 300, backgroundColor: 'blue' }}>
+      <Text>
+        {nome}
       </Text>
 
     </View>
@@ -17,9 +18,8 @@ const Logo = ({ carboidrato, alimento, itens }) => {
 
 const mapStateToProps = ({ calculator }) => {
   return {
-    carboidrato: calculator.carboidrato,
-    alimento: calculator.alimento,
-    itens: calculator.itens
+    alimento: calculator,
+    nome: calculator.nome
   }
 }
 
