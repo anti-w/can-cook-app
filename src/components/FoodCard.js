@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { TouchableOpacity, Text, View, StyleSheet, Image, Dimensions } from 'react-native'
-import { connect } from 'react-redux'
-import { addAlimento } from '../store/actions/calculator'
+import { nanoid } from '@reduxjs/toolkit'
+import { useDispatch, useSelector } from 'react-redux'
+import { foodAdd } from '../store/reducers/foodSlice'
 import Nutrients from './Nutrients'
 
 const FoodCard = ({
-  uri,
   nome,
   carboidrato,
   calorias,
@@ -13,17 +13,22 @@ const FoodCard = ({
   proteina,
   counter,
   alimento,
-  addAli }) => {
+  uri
+}) => {
 
-  const [state, setState] = useState([])
+
+  const dispatch = useDispatch()
+
   return (
     <TouchableOpacity
-      onPress={() => {
-        setState(state.concat([...alimento]))
-      }}
-
+      onPress={() => dispatch(foodAdd({
+        id: nanoid(),
+        nome: nome,
+        carboidrato: carboidrato,
+        uri: uri,
+      }))}
       style={[styles.container, styles.content]} >
-      <Image source={{ uri: uri }} style={{ height: 64, width: 64 }} />
+      <Image source={{ uri: uri }} style={styles.image} />
       <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <Text style={styles.description}>{nome}</Text>
         <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 3.5 }}>
@@ -31,8 +36,6 @@ const FoodCard = ({
           <Nutrients bgColor={'#88A61C'} item={(calorias * counter).toFixed(1)} />
           <Nutrients bgColor={'#F28705'} item={(lipidios * counter).toFixed(1)} />
           <Nutrients bgColor={'#A926D5'} item={(proteina * counter).toFixed(1)} />
-          {console.log(state)}
-
         </View>
       </View>
 
@@ -67,21 +70,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5
   },
+  image: {
+    width: width / 10,
+    height: width / 10,
+    resizeMode: 'center'
+  }
 
 })
 
-const mapStateToProps = ({ filter }) => {
-  return {
-    uri: filter.uri,
-    alimento: filter
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addAli: alimento => dispatch(addAlimento(alimento))
-  }
-}
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(FoodCard)
+
+export default FoodCard

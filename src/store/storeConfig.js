@@ -1,13 +1,11 @@
-import { createStore, combineReducers } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
+import foodSlice from './reducers/foodSlice'
+import groupSlice from './reducers/groupSlice'
 
-import groupsReducer from './reducers/groups'
-import calculatorReducer from './reducers/calculator'
 
-const reducers = combineReducers({
-  filter: groupsReducer,
-  calculator: calculatorReducer
+export default configureStore({
+  reducer: {
+    foods: foodSlice,
+    groups: groupSlice
+  },
 })
-
-const storeConfig = () => createStore(reducers)
-
-export default storeConfig

@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, Image, Dimensions, StyleSheet } from 'react-native'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 
 import BalanceCounter from './BalanceCounter'
 import FoodCard from './FoodCard'
 import Nutrients from './Nutrients'
 
-const CardAlimento = ({ item, uri }) => {
+const CardAlimento = ({ item }) => {
   const [counter, setCounter] = useState(0)
+  const uri = useSelector(state => state.groups.uri)
 
 
   return (
@@ -19,7 +20,9 @@ const CardAlimento = ({ item, uri }) => {
         calorias={item.Energiakcal}
         lipidios={item.Lipídiosg}
         counter={counter}
-        uri={uri} />
+        uri={uri}
+        key={item.Código}
+      />
       <BalanceCounter counter={counter} setCounter={setCounter} />
 
     </View >
@@ -40,11 +43,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = ({ filter }) => {
-  return {
-    uri: filter.uri
-  }
-}
 
 
-export default connect(mapStateToProps)(CardAlimento)
+
+export default CardAlimento

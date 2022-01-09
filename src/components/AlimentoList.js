@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
 import axios from 'axios'
 import { FlatList, View } from 'react-native'
 
 import CardAlimento from './CardAlimento'
 import FoodCard from './FoodCard'
+import { useSelector } from 'react-redux'
 
 /* 
 component responsável por renderizar os dados da API
@@ -16,8 +16,10 @@ CardAliemento de acordo com os alimentos da API.
 
 */
 
-const AlimentoList = ({ group, uri }) => {
+const AlimentoList = () => {
+  const group = useSelector(state => state.groups)
   const [alimentos, setAlimentos] = useState(null)
+
 
   /*
     ao utilizar o useEffect, tenho como definir
@@ -27,7 +29,7 @@ const AlimentoList = ({ group, uri }) => {
   
   */
   useEffect(() => {
-    axios.get(`https://api-can-cook.herokuapp.com/${group}`).then((res) => setAlimentos(res.data)).catch(err => console.log(err))
+    axios.get(`https://api-can-cook.herokuapp.com/${group.grupo}`).then((res) => setAlimentos(res.data)).catch(err => console.log(err))
 
   }, [group])
 
@@ -38,7 +40,7 @@ const AlimentoList = ({ group, uri }) => {
 
 
   //como renderItem retorna mais de um e queremos apenas o item, utilizei a sintaxe de destructuring para não pegar nada das props além de item
-  const renderItem = ({ item }) => <CardAlimento item={item} uri={uri} />
+  const renderItem = ({ item }) => <CardAlimento item={item} />
 
   //flatlist precisa obrigatoriamente das tres props, data, renderItem e keyextractor
   return (
@@ -50,11 +52,4 @@ const AlimentoList = ({ group, uri }) => {
 }
 
 
-const mapStateToProps = ({ filter }) => {
-  return {
-    group: filter.group,
-    uri: filter.uri
-  }
-}
-
-export default connect(mapStateToProps)(AlimentoList)
+export default AlimentoList

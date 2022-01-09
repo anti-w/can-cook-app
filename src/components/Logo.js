@@ -1,26 +1,28 @@
 import React, { useState } from 'react'
 import { View, Text, FlatList } from 'react-native'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import FoodCard from './FoodCard'
 
 
-const Logo = ({ alimento, nome }) => {
+const Logo = () => {
+  const itens = useSelector(state => state.foods)
   return (
     <View style={{ height: 300, backgroundColor: 'blue' }}>
-      <Text>
-        {nome}
-      </Text>
+      {
+        itens.length > 1 ? (
+          itens.map(item =>
+            <FoodCard
+              uri={item.uri}
+              key={item.id} />)) : (
+          <Text>Nenhum alimento selecionado</Text>)
+      }
+
+
 
     </View>
   )
 
 }
 
-const mapStateToProps = ({ calculator }) => {
-  return {
-    alimento: calculator,
-    nome: calculator.nome
-  }
-}
 
-export default connect(mapStateToProps)(Logo)
+export default Logo

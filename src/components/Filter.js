@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios'
-import { connect } from 'react-redux'
 import { FlatList, View, StyleSheet, Text, TouchableOpacity, Image, Dimensions } from "react-native";
-import { filter } from '../store/actions/groups';
+import { useDispatch, useSelector } from 'react-redux';
+import { groupAdd } from '../store/reducers/groupSlice'
 
 /* 
   Componente parecido com o AlimentosList, também contém uma flatlist porém ele é renderizado na horizontal e possui um evento de click que altera o estado global fornecido pelo redux
@@ -21,9 +21,10 @@ const Item = ({ item, onPress, backgroundColor, textColor, id }) => (
   </TouchableOpacity >
 );
 
-const Filter = ({ setGroup }) => {
+const Filter = () => {
   const [groups, setGroups] = useState(null)
   const [selectedId, setSelectedId] = useState(null);
+  const dispatch = useDispatch()
 
   const renderItem = ({ item }) => {
     const backgroundColor = 'white'
@@ -32,11 +33,18 @@ const Filter = ({ setGroup }) => {
       <Item
         item={item}
         onPress={() => {
+          item.search ? (
+            dispatch(groupAdd({
+              grupo: item.search,
+              uri: item.uri
+            }))) : (
+            dispatch(groupAdd({
+              grupo: item.nome,
+              uri: item.uri
+            }))
+          )
 
-          item.search ? setGroup({ group: item.search, uri: item.uri }) :
-            setGroup({ group: item.nome, uri: item.uri })
-        }
-        }
+        }}
         backgroundColor={{ backgroundColor }
         }
         textColor={{ color }
@@ -61,6 +69,7 @@ const Filter = ({ setGroup }) => {
         keyExtractor={(item) => item.nome}
         horizontal
       />
+
     </View>
   );
 };
@@ -103,10 +112,5 @@ const styles = StyleSheet.create({
 
 */
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setGroup: (group) => dispatch(filter(group))
-  }
-}
 
-export default connect(null, mapDispatchToProps)(Filter);
+export default Filter;
