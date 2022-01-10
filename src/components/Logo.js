@@ -10,10 +10,17 @@ const Logo = () => {
     <View style={{ height: 300, backgroundColor: 'blue' }}>
       {
         itens.length > 1 ? (
-          itens.map(item =>
+          itens.map((item, i) =>
             <FoodCard
               uri={item.uri}
-              key={item.id} />)) : (
+              key={i}
+              carboidrato={item.carboidrato}
+              counter={item.counter}
+              nome={item.nome}
+              disabled={true}
+              proteina={item.proteina}
+              calorias={item.calorias}
+              lipidios={item.lipidios} />)) : (
           <Text>Nenhum alimento selecionado</Text>)
       }
 

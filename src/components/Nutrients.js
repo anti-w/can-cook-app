@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
 
-const Nutrients = ({ item, counter, bgColor }) => {
+const Nutrients = ({ item, bgColor }) => {
   return (
 
     <View style={[styles.nutri, { backgroundColor: bgColor }]}>

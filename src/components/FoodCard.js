@@ -13,7 +13,8 @@ const FoodCard = ({
   proteina,
   counter,
   alimento,
-  uri
+  uri,
+  disabled
 }) => {
 
 
@@ -21,12 +22,20 @@ const FoodCard = ({
 
   return (
     <TouchableOpacity
-      onPress={() => dispatch(foodAdd({
-        id: nanoid(),
-        nome: nome,
-        carboidrato: carboidrato,
-        uri: uri,
-      }))}
+      onPress={() => {
+        if (!disabled) (dispatch(foodAdd({
+          id: nanoid(),
+          nome: nome,
+          carboidrato: carboidrato,
+          uri: uri,
+          counter: counter,
+          calorias: calorias,
+          lipidios: lipidios,
+          proteina: proteina
+        })))
+
+      }
+      }
       style={[styles.container, styles.content]} >
       <Image source={{ uri: uri }} style={styles.image} />
       <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>

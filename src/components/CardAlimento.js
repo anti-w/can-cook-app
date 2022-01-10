@@ -22,7 +22,10 @@ const CardAlimento = ({ item }) => {
         counter={counter}
         uri={uri}
         key={item.Código}
+        disable={false}
       />
+      {console.log(item.Nome)}
+      {console.log(counter)}
       <BalanceCounter counter={counter} setCounter={setCounter} />
 
     </View >

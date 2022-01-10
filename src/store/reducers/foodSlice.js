@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = [{}]
+const initialState = [{
+  id: 'djas',
+  nome: 'sei lá',
+  carboidrato: 0
+}]
 
 const foodSlice = createSlice({
   name: 'foods',
