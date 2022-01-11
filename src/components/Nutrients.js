@@ -19,8 +19,8 @@ const { width } = Dimensions.get('screen')
 const styles = StyleSheet.create({
   nutri: {
     borderRadius: 1000,
-    height: width / 15.6,
-    width: width / 15.6,
+    height: width / 15.7,
+    width: width / 15.7,
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 10,
