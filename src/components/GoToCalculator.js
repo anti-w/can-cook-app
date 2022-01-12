@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { View, Text, FlatList, StyleSheet, Dimensions, Image } from 'react-native'
+import { View, Text, FlatList, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
-import FoodCard from './FoodCard'
 
 
-const GoToCalculator = () => {
+const GoToCalculator = ({ navigation }) => {
   const itens = useSelector(state => state.foods)
   return (
     <View style={styles.infos}>
@@ -16,15 +15,18 @@ const GoToCalculator = () => {
         <Text style={{ color: '#F28705' }}>Lipídios(g)</Text>
         <Text style={{ color: '#A926D5' }}>Proteínas(g)</Text>
       </View>
-      <View style={{
-        width: 30,
-        height: 30,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: -5,
-        marginRight: 20,
-        flexDirection: 'column-reverse',
-      }}>
+      <TouchableOpacity
+        onPress={() => { navigation.navigate('Calculator') }}
+
+        style={{
+          width: 30,
+          height: 30,
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: -5,
+          marginRight: 20,
+          flexDirection: 'column-reverse',
+        }}>
         <Image
           style={styles.image}
           source={{ uri: 'https://res.cloudinary.com/dscztnlqq/image/upload/v1641900033/can-eat/prato_o6fpae.png' }} />
@@ -36,7 +38,7 @@ const GoToCalculator = () => {
           width: 20,
           height: 20
         }}><Text style={{ color: 'white' }}>{itens.length - 1}</Text></View>
-      </View>
+      </TouchableOpacity>
 
     </View>
   )
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
 
     flexDirection: 'row',
     marginHorizontal: 30,
-    marginVertical: 10,
+    marginVertical: 20,
   },
   separator: {
     flex: 1,

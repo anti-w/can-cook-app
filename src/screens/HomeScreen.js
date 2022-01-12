@@ -1,21 +1,20 @@
 import Filter from '../components/Filter'
-import React from 'react'
-import { View, SafeAreaView } from 'react-native'
+import React, { useState } from 'react'
+import { View, SafeAreaView, Text } from 'react-native'
 import AlimentoList from '../components/AlimentoList'
 import GoToCalculator from '../components/GoToCalculator'
 import FoodCard from '../components/FoodCard'
 
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
+  const [loading, setLoading] = useState(true)
   return (
     <SafeAreaView style={{ flex: 1 }}>
 
-
-
       <Filter />
-      <GoToCalculator />
+      {!loading && <GoToCalculator navigation={navigation} />}
 
-      <AlimentoList />
+      <AlimentoList loading={loading} setLoading={setLoading} />
 
 
 

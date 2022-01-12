@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
   image: {
     width: width / 11,
     height: width / 11,
-    resizeMode: 'center'
+    resizeMode: 'center',
+    marginLeft: 20
   }
 
 })
