@@ -3,6 +3,7 @@ import { TouchableOpacity, Text, View, StyleSheet, Image, Dimensions } from 'rea
 import { nanoid } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
 import { foodAdd } from '../store/reducers/foodSlice'
+import { sum } from '../store/reducers/totalSlice'
 import Nutrients from './Nutrients'
 
 const FoodCard = ({
@@ -23,17 +24,25 @@ const FoodCard = ({
   return (
     <TouchableOpacity
       onPress={() => {
-        if (!disabled) (dispatch(foodAdd({
-          id: nanoid(),
-          nome: nome,
-          carboidrato: carboidrato,
-          uri: uri,
-          counter: counter,
-          calorias: calorias,
-          lipidios: lipidios,
-          proteina: proteina
-        })))
+        if (!disabled) {
+          (dispatch(foodAdd({
+            id: nanoid(),
+            nome: nome,
+            carboidrato: carboidrato,
+            uri: uri,
+            counter: counter,
+            calorias: calorias,
+            lipidios: lipidios,
+            proteina: proteina
+          })))
+          dispatch(sum({
+            carboidrato: carboidrato * counter,
+            calorias: calorias * counter,
+            lipidios: lipidios * counter,
+            proteina: proteina * counter,
+          }))
 
+        }
       }
       }
       style={[styles.container, styles.content]} >
@@ -79,10 +88,10 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   image: {
-    width: width / 11,
-    height: width / 11,
+    width: width / 12,
+    height: width / 12,
     resizeMode: 'center',
-    marginLeft: 20
+    marginLeft: 5
   }
 
 })
